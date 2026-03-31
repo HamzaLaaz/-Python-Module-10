@@ -30,7 +30,7 @@ def spell_sequence(spells: list[callable]) -> callable:
     return sequence
 
 
-if __name__ == "__main__":
+def main() -> None:
     def fireball(target: str) -> str:
         return f"Fireball hits {target}"
 
@@ -57,3 +57,7 @@ if __name__ == "__main__":
     # print(caster("hamza"))
     # sequence = spell_sequence([fireball, heal])
     # print(sequence("Knight"))
+
+
+if __name__ == "__main__":
+    main()
