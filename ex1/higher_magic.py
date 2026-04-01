@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def spell_combiner(spell1: callable, spell2: callable) -> callable:
     def combined(*args, **kwargs) -> tuple:
         result1 = spell1(*args, **kwargs)
@@ -7,14 +10,14 @@ def spell_combiner(spell1: callable, spell2: callable) -> callable:
 
 
 def power_amplifier(base_spell: callable, multiplier: int) -> callable:
-    def amplifier(*args, **kwargs):
+    def amplifier(*args, **kwargs) -> Any:
         result = base_spell(*args, **kwargs)
         return result * multiplier
     return amplifier
 
 
 def conditional_caster(condition: callable, spell: callable) -> callable:
-    def caster(*args, **kwargs):
+    def caster(*args, **kwargs) -> Any:
         if condition(*args, **kwargs):
             return spell(*args, **kwargs)
         return "Spell fizzled"
@@ -22,7 +25,7 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
 
 
 def spell_sequence(spells: list[callable]) -> callable:
-    def sequence(*args, **kwargs):
+    def sequence(*args, **kwargs) -> list:
         results = []
         for spell in spells:
             results.append(spell(*args, **kwargs))
@@ -52,11 +55,6 @@ def main() -> None:
     mega_fireball = power_amplifier(damage_spell, 3)
     result = mega_fireball(original_damage)
     print(f"Original: {original_damage}, Amplified: {result}")
-    # caster = conditional_caster(is_enemy, fireball)
-    # print(caster("Dragon"))
-    # print(caster("hamza"))
-    # sequence = spell_sequence([fireball, heal])
-    # print(sequence("Knight"))
 
 
 if __name__ == "__main__":

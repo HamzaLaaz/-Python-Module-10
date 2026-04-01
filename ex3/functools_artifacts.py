@@ -1,5 +1,6 @@
 import functools
 import operator
+from typing import Any
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
@@ -32,19 +33,19 @@ def memoized_fibonacci(n: int) -> int:
 
 def spell_dispatcher() -> callable:
     @functools.singledispatch
-    def dispatch(value):
+    def dispatch(value: Any) -> Any:
         return f"Unknown spell type: {type(value)}"
 
     @dispatch.register(int)
-    def _(value):
+    def _(value: int) -> str:
         return f"{value} damage dealt"
 
     @dispatch.register(str)
-    def _(value):
+    def _(value: str) -> str:
         return f"{value} played"
 
     @dispatch.register(list)
-    def _(value):
+    def _(value: list) -> str:
         return (f"Multi-cast: {len(value)} "
                 f"spells cast: {', '.join(v for v in value)}")
 
@@ -64,7 +65,7 @@ def main() -> None:
 
     print("\nTesting memoized fibonacci...")
     print(f"Fib(10): {memoized_fibonacci(10)}")
-    print(f"Fib(10): {memoized_fibonacci(15)}")
+    print(f"Fib(15): {memoized_fibonacci(15)}")
 
 
 if __name__ == "__main__":
